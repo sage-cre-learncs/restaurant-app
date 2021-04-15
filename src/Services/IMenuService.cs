@@ -5,11 +5,11 @@ namespace KitchenApi
 {
     public interface IMenuService
     {
-        ICollection<MenuItem> GetMenu();
+        IEnumerable<MenuItem> GetMenu();
         
-        ICollection<MenuItem> GetMenu(MenuType type);
+        IEnumerable<MenuItem> GetMenu(MenuType type);
 
-        ICollection<MenuItem> GetMenu(DateTime time);
+        IEnumerable<MenuItem> GetMenu(DateTime time);
 
         MenuItem GetMenuItem(int id);
 
