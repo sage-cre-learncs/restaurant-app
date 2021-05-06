@@ -6,7 +6,7 @@ namespace KitchenApi
     public class MenuService : IMenuService    
     {
         private int nextId = 4;
-        private IList<MenuItem> menu = new List<MenuItem> {
+        private List<MenuItem> menu = new List<MenuItem> {
             new MenuItem {
                 Id = 0,
                 Name =  "Green Eggs and Ham",
@@ -39,7 +39,8 @@ namespace KitchenApi
 
         public void DeleteMenuItem(int id)
         {
-            throw new NotImplementedException();
+            var item = this.menu.Find(m => m.Id == id);
+            this.menu.Remove(item);
         }
 
         public IEnumerable<MenuItem> GetMenu()       
@@ -59,18 +60,46 @@ namespace KitchenApi
         }
 
         public IEnumerable<MenuItem> GetMenu(DateTime time)
-        {
-            throw new NotImplementedException();
+        {                
+            if (time.Hour < 11 && time.Hour > 6)
+            {
+                return GetMenu(MenuType.Breakfast);
+            }
+            if (time.Hour < 16)
+            {
+                return GetMenu(MenuType.Lunch);
+            }
+            if (time.Hour < 18)
+            {
+                return GetMenu(MenuType.HappyHour);
+            }
+            if (time.Hour < 22)
+            {
+                return GetMenu(MenuType.Dinner);
+            }
+            return null;
         }
 
         public MenuItem GetMenuItem(int id)
         {
-            throw new NotImplementedException();
+            return this.menu.Find(m => m.Id == id);
         }
 
-        public MenuItem UpsertMenuItem(MenuItem name)
+        public MenuItem UpsertMenuItem(MenuItem item)
         {
-            throw new NotImplementedException();
+            var existingItem = this.menu.Find(m => m.Id == item.Id);
+            if (existingItem == null)
+            {
+                this.menu.Add(item);
+            }
+            else 
+            {
+                existingItem.Description = item.Description;
+                existingItem.Menu = item.Menu;
+                existingItem.Price = item.Price;
+                existingItem.Name = item.Name;
+            }
+            return item;
         }
     }
 }

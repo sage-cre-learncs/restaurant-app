@@ -2,11 +2,11 @@ namespace KitchenApi
 {
     public class MenuItem
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public decimal Price { get; init; }
-        public string Description { get; init; }
-        public MenuType Menu { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public MenuType Menu { get; set; }
     }
     public enum MenuType
     {
